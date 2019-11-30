@@ -3,12 +3,17 @@ import App from './views/App'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store/store'
+import Cookies from 'js-cookie'
 import router from './routes/router'
+import MintUi from 'mint-ui';
+import 'mint-ui/lib/style.css'
 
 Vue.use(VueAxios, axios)
 axios.defaults.baseURL = 'http://myvue.test/api';
 
-const token = localStorage.getItem('token')
+Vue.use(MintUi)
+
+const token = Cookies.get('token')
 if(token){
 	axios.defaults.headers.common['Authorization']= `Bearer ${ token }`
 }

@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 axios.defaults.baseURL = 'http://myvue.test/api';
 
 export default {
 	namespaced: true,
 	state:{
 		status:'',
-		token:localStorage.getItem('token')||'',
-		user:{}
+		token:Cookies.get('token')||'',
+		user:JSON.parse(Cookies.get('user'))||{}
 	},
 	mutations:{ //同步事件 改变 state 的数据 state 作为第一个参数传递
 		auth_request(state){
@@ -37,14 +38,15 @@ export default {
 					console.log(response)
 					let token=response.data.token
 					let user=response.data.user
-					localStorage.setItem('token',token)
+					Cookies.set('token',token)
+					Cookies.set('user',user)
 					axios.defaults.headers.common['Authorization']= token
 					commit('auth_success', {token, user})
 					resolve(response)
 					
 				}).catch(err=>{
 					commit('auth_error')
-					localStorage.removeItem('token')
+					Cookies.remove('token')
 					reject(err)
 				});
 			})
@@ -57,14 +59,15 @@ export default {
 
 					let token=response.data.token;
 					let user=response.data.user;
-					localStorage.setItem('token',token)
+					Cookies.set('token',token)
+					Cookies.set('user',user)
 					axios.defaults.headers.common['Authorization']= token
 					commit('auth_success', token, user)
 
 					resolve(response)
 				}).catch(err=>{
 					commit('auth_error')
-					localStorage.removeItem('token')
+					Cookies.remove('token')
 					reject(err)
 				});
 			})
@@ -72,7 +75,8 @@ export default {
 		logout({commit}){
 			return new Promise((resolve, reject)=>{
 		        commit('logout')    
-		        localStorage.removeItem('token')
+		        Cookies.remove('token')
+		        Cookies.remove('user')
 		        delete axios.defaults.headers.common['Authorization']
 		        resolve()
 		    })

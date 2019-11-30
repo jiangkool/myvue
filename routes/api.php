@@ -25,4 +25,5 @@ Route::group(['namespace'=>'Api'],function(){
 	Route::delete('users/{user}', 'UsersController@destroy')->middleware('auth:api');
 
 	Route::post('login', 'UsersController@login');
+	Route::get('settings', 'UsersController@settings');
 });

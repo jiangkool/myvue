@@ -9,6 +9,7 @@ import UsersDestory from '../views/UsersDestory'
 import UsersCreate from '../views/UsersCreate'
 import NotFound from '../views/NotFound'
 import Login from '../views/Login'
+import Me from '../views/Me'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,7 @@ const router=new VueRouter({
 			{ path:'/users/:id/destory', name:'users.destory' , component:UsersDestory ,meta:{requiresAuth:true} },
 			{ path:'/users/create', name:'users.create' , component:UsersCreate ,meta:{requiresAuth:true} },
 			{ path:'/login', name:'user.login' , component:Login },
+			{ path:'/me', name:'me' , component:Me },
 			{ path:'*',component:NotFound }
 	]
 });

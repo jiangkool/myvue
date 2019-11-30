@@ -1,8 +1,11 @@
 <template>
 	<div>
-		<ul v-if="items.length>0">
-			<li v-for="(item,index) in items" :key="item.id">{{item.name}} {{item.email}} <router-link :to="{name:'users.show',params:{id:item.id}}" class="btn btn-info btn-sm">查看信息>></router-link>  <button v-show="isLoggedIn" class="btn btn-danger btn-sm" @click="del(index)">删除信息>></button></li>
-		</ul>
+			<div v-if="items.length>0">
+			<mt-cell v-for="(item,index) in items" :key="item.id" :title="item.name" is-link :to="{name:'users.show',params:{id:item.id}}">
+			  <span style="color: green">{{item.email}}</span>
+			  <mt-button type="danger" size="small" @click.stop.prevent="del(index)">删除</mt-button>
+			</mt-cell>
+			</div>
 		<span v-else v-text="'暂无记录！'">
 			
 		</span>

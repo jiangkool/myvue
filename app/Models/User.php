@@ -12,4 +12,10 @@ class User extends Authenticatable
 
     protected $fillable=['name','email','password'];
 
+    public function scopeNotAdmin($query)
+    {
+    	return $query->where('name','!=','admin');
+    }
+
+    protected $hidden=['password'];
 }

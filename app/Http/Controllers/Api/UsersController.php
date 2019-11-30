@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Setting;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
@@ -17,7 +18,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::paginate(10));
+        return UserResource::collection(User::NotAdmin()->paginate(10));
     }
 
     /**
@@ -27,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -50,7 +51,7 @@ class UsersController extends Controller
 
         ]);
 
-        $user=User::create($validateData);
+        $user=User::create(['name'=>$request->name,'email'=>$request->email,'password'=>bcrypt($request->password)]);
 
         return new UserResource($user);
 
@@ -116,5 +117,10 @@ class UsersController extends Controller
             return response()->json(compact('token','user'));
         }
 
+    }
+
+    public function settings()
+    {
+        dd(Setting::where('key','网站标题')->first());
     }
 }
