@@ -32383,7 +32383,7 @@ axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = 'http://myvue.te
   state: {
     status: '',
     token: js_cookie__WEBPACK_IMPORTED_MODULE_2___default.a.get('token') || '',
-    user: JSON.parse(js_cookie__WEBPACK_IMPORTED_MODULE_2___default.a.get('user')) || {}
+    user: js_cookie__WEBPACK_IMPORTED_MODULE_2___default.a.get('user') && JSON.parse(js_cookie__WEBPACK_IMPORTED_MODULE_2___default.a.get('user')) || {}
   },
   mutations: {
     //同步事件 改变 state 的数据 state 作为第一个参数传递

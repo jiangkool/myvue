@@ -8,7 +8,7 @@ export default {
 	state:{
 		status:'',
 		token:Cookies.get('token')||'',
-		user:JSON.parse(Cookies.get('user'))||{}
+		user:Cookies.get('user')&&JSON.parse(Cookies.get('user'))||{}
 	},
 	mutations:{ //同步事件 改变 state 的数据 state 作为第一个参数传递
 		auth_request(state){
